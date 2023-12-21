@@ -20,7 +20,7 @@ app.use(cors());
 //     });
 // });
 app.get("/", (req, res) => {
-    res.send(`Welcome To Janus Alive Server managed by Prateek Takthar ${count++}`);
+    res.send(`Welcome To Janus Alive Server managed by Prateek Takthar`);
 });
 
 app.use(
