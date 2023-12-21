@@ -11,14 +11,10 @@ const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
+const mongoConnect = require("./helper/db");
+// mongoConnect()
 //cors
 app.use(cors());
-// app.get('/', (req, res) => {
-//     res.status(200).json({
-//         ok: true,
-//         message: `working on ${PORT}`
-//     });
-// });
 app.get("/", (req, res) => {
     res.send(`Welcome To Janus Alive Server managed by Prateek Takthar`);
 });
@@ -30,32 +26,13 @@ app.use(
 app.use('/api/products', productRoute)
 app.use('/api/category', categoryRoute)
 
-// const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/your_database_name';
-// const PORT = process.env.PORT || 3040;
-
-mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGO_URL)
     .then(() => {
-        console.log("Database connected successfully :)");
+        console.log("Database connected succesfully :)");
         app.listen(PORT, (err) => {
-            if (err) {
-                console.error('Error starting the server:', err.message);
-            } else {
-                console.log('App is running on port', PORT);
-            }
-        });
+            if (err) console.log(err.message)
+            console.log('app is running on port', PORT)
+        })
+    }).catch((error) => {
+        console.log("error while connecting to the database ", error);
     })
-    .catch((error) => {
-        console.error("Error while connecting to the database:", error.message);
-    });
-
-
-// mongoose.connect(MONGO_URL)
-//     .then(() => {
-//         console.log("Database connected succesfully :)");
-//         app.listen(PORT, (err) => {
-//             if (err) console.log(err.message)
-//             console.log('app is running on port', PORT)
-//         })
-//     }).catch((error) => {
-//         console.log("error while connecting to the database ", error);
-//     })
