@@ -13,11 +13,14 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 //cors
 app.use(cors());
-app.get('/', (req, res) => {
-    res.status(200).json({
-        ok: true,
-        message: `working on ${PORT}`
-    });
+// app.get('/', (req, res) => {
+//     res.status(200).json({
+//         ok: true,
+//         message: `working on ${PORT}`
+//     });
+// });
+app.get("/", (req, res) => {
+    res.send(`Welcome To Janus Alive Server managed by Prateek Takthar ${count++}`);
 });
 
 app.use(
