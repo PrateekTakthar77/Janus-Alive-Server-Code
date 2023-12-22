@@ -37,19 +37,34 @@ const getCategorybyid = async (req, res, next) => {
     }
 }
 
+// const getCategorybyidandUpdate = async (req, res, next) => {
+//     try {
+//         const { id } = req.params;
+//         const category = await Category.findByIdAndUpdate(id)
+//         if (!category) {
+//             res.status(403).json({ message: `cannot find category by id ${id} to update` })
+//         }
+//         res.status(200).json(category)
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).message({ message: error.message })
+//     }
+// }
 const getCategorybyidandUpdate = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const category = await Category.findByIdAndUpdate(id)
+        const category = await Category.findByIdAndUpdate(id, req.body, { new: true });
+
         if (!category) {
-            res.status(403).json({ message: `cannot find category by id ${id} to update` })
+            return res.status(404).json({ message: `Cannot find category with id ${id} to update` });
         }
-        res.status(200).json(category)
+
+        res.status(200).json(category);
     } catch (error) {
-        console.log(error)
-        res.status(500).message({ message: error.message })
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
-}
+};
 
 const getCategoryandDelete = async (req, res, next) => {
     try {
