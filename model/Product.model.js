@@ -36,12 +36,18 @@ const productschema = mongoose.Schema(
         hoadingcode: {
             type: String,
         },
-        sku: {
+        seotitle: {
             type: String,
         },
-        tags: {
+        seodesc: {
             type: String,
         },
+        desc: {
+            type: String,
+        },
+        illumination: {
+            type: String,
+        }
     },
     {
         timestamps: true

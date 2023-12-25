@@ -49,8 +49,8 @@ const getProductByIdUpdate = async (req, res, next) => {
 // create Product
 const createProduct = async (req, res) => {
     try {
-        const { address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, sku, tags } = req.body;
-        const product = new Product({ address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, sku, tags })
+        const { address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination } = req.body;
+        const product = new Product({ address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination })
         await product.save();
         res.status(200).json(product);
     } catch (error) {
