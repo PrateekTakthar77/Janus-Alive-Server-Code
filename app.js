@@ -7,6 +7,7 @@ const MONGO_URL = process.env.MONGO_URL
 const authRouter = require('./routes/Auth.routes')
 const productRoute = require('./routes/product.routes')
 const categoryRoute = require('./routes/Category.routes')
+const articleRoute = require("./routes/Post")
 const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }))
@@ -23,8 +24,9 @@ app.use(
     "/api/auth",
     authRouter
 );
-app.use('/api/products', productRoute)
-app.use('/api/category', categoryRoute)
+app.use('/api/products', productRoute);
+app.use('/api/category', categoryRoute);
+app.use("/api/blog", articleRoute);
 
 mongoose.connect(MONGO_URL)
     .then(() => {
