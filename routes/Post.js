@@ -74,13 +74,30 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.get('/news/latest', async (req, res) => {
+router.get('/list/latest', async (req, res) => {
     try {
         const post = await Post.find({});
         post.reverse() // we are reversing the array so the latest one appear first 
         res.status(200).json(post)
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Get a single item by SEO title
+router.get('/seotitle/:engtitle', async (req, res) => {
+    try {
+        const seoTitle = req.params.engtitle; // Extract the SEO title from the URL parameter
+        const post = await Post.findOne({ engtitle: seoTitle });
+
+        if (!post) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+
+        res.status(200).json(post);
+    } catch (error) {
+        console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
