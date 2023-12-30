@@ -1,25 +1,57 @@
 const Product = require("../model/Product.model")
 
 // get all products
+// const getAllProducts = async (req, res, next) => {
+//     // const { search } = req.query;
+//     console.log(req.query)
+//     try {
+//         let products = await Product.find(req.query);
+//         // if (search) {
+//         //     products = await Product.find({
+//         //         $or: [
+//         //             { name: new RegExp(search, 'i') },
+//         //         ],
+//         //     });
+//         // } else {
+//         //     products = await Product.find();
+//         // }
+//         res.status(200).json(products);
+//     } catch (error) {
+//         console.log(error)
+//         res.status(503).json({ message: error.message })
+//     }
+// }
 const getAllProducts = async (req, res, next) => {
-    const { search } = req.query;
     try {
-        let products;
-        if (search) {
-            products = await Product.find({
-                $or: [
-                    { name: new RegExp(search, 'i') },
-                ],
-            });
-        } else {
-            products = await Product.find();
+        // Validate and sanitize query parameters
+        const { city, state } = req.query;
+        console.log(req.query)
+
+        let query = {};
+
+        // Apply city filter if provided
+        if (city) {
+            query.city = city;
         }
+
+        // Apply category filter if provided
+        if (state) {
+            query.state = state;
+        }
+
+        // Fetch products based on the query
+        let products = await Product.find(query);
+
+        // Respond with the products
         res.status(200).json(products);
     } catch (error) {
-        console.log(error)
-        res.status(503).json({ message: error.message })
+        // Log the error for debugging purposes
+        console.error(error);
+        // Respond with an error message
+        res.status(503).json({ message: 'Error fetching products', error: error.message });
     }
-}
+};
+
 // get Single Product by ID
 const getProductById = async (req, res, next) => {
     try {
