@@ -24,12 +24,15 @@ const Product = require("../model/Product.model")
 const getAllProducts = async (req, res, next) => {
     try {
         // Validate and sanitize query parameters
-        const { city, state } = req.query;
+        const { city, state, category } = req.query;
         console.log(req.query)
 
         let query = {};
 
         // Apply city filter if provided
+        if (category) {
+            query.category = category;
+        }
         if (city) {
             query.city = city;
         }
