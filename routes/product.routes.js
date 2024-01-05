@@ -11,7 +11,7 @@ router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getProductById)
 
 // get Single Product by ID and update
-router.put('/:id', productController.getProductByIdUpdate);
+router.put('/update/:id', productController.getProductByIdUpdate);
 // create Product
 router.post('/', productController.createProduct);
 // bulk

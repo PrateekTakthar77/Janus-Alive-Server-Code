@@ -1,4 +1,5 @@
 const Product = require("../model/Product.model")
+const { generateRandomCode } = require("../helper/code")
 
 // get all products
 // const getAllProducts = async (req, res, next) => {
@@ -83,9 +84,10 @@ const getProductByIdUpdate = async (req, res, next) => {
 }
 // create Product
 const createProduct = async (req, res) => {
+    const code = generateRandomCode(8)
     try {
         const { address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination } = req.body;
-        const product = new Product({ address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination })
+        const product = new Product({ address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination, code })
         await product.save();
         res.status(200).json(product);
     } catch (error) {
