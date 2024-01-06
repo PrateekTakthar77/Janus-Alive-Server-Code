@@ -8,6 +8,7 @@ const authRouter = require('./routes/Auth.routes')
 const productRoute = require('./routes/product.routes')
 const categoryRoute = require('./routes/Category.routes')
 const articleRoute = require("./routes/Post")
+const contactForm = require("./routes/conatact.routes")
 const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }))
@@ -27,6 +28,7 @@ app.use(
 app.use('/api/products', productRoute);
 app.use('/api/category', categoryRoute);
 app.use("/api/blog", articleRoute);
+app.use("/api/conatactform", contactForm)
 
 mongoose.connect(MONGO_URL)
     .then(() => {
