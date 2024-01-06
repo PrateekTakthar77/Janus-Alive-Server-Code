@@ -86,8 +86,8 @@ const getProductByIdUpdate = async (req, res, next) => {
 const createProduct = async (req, res) => {
     const code = generateRandomCode(8)
     try {
-        const { address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination } = req.body;
-        const product = new Product({ address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination, code })
+        const { address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination, subcat } = req.body;
+        const product = new Product({ address, price, totalsqft, image, category, city, heightwidth, state, district, hoadingcode, seotitle, seodesc, desc, illumination, code, subcat })
         await product.save();
         res.status(200).json(product);
     } catch (error) {

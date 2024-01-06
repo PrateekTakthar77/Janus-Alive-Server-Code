@@ -50,6 +50,8 @@ const productschema = mongoose.Schema(
         },
         code: {
             type: String,
+        }, subcat: {
+            type: String
         }
     },
     {
