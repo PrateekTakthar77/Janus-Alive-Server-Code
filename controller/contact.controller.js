@@ -1,11 +1,13 @@
 const Form = require("../model/contact.model")
+const product = require("../model/Product.model")
 const nodemailer = require("nodemailer")
 require("dotenv").config();
 
 const Getuserquery = async (req, res, next) => {
     try {
-        const { name, email } = req.body
-        const data = new Form({ name, email })
+        const { name, email, phone, message, id } = req.body
+        const data = new Form({ name, email, phone, message, id })
+        const products = await product.findById(id)
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             host: "smtp.gmail.com",
@@ -22,10 +24,11 @@ const Getuserquery = async (req, res, next) => {
                 name: 'Janus Alive',
                 address: process.env.USER
             }, // sender address
-            to: email, // list of receivers
+            // to: email, // list of receivers
+            to: 'prateek@januskoncepts.net', // list of receivers
             subject: "Thank You for contacting us",
             text:
-                `Dear ${name},
+                `Dear ${name},hello ${products.address}
              `,
         };
 
