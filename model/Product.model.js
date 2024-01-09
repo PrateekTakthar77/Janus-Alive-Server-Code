@@ -52,6 +52,10 @@ const productschema = mongoose.Schema(
             type: String,
         }, subcat: {
             type: String
+        }, title: {
+            type: String
+        }, url: {
+            type: String
         }
     },
     {
