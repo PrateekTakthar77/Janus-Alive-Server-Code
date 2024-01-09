@@ -15,7 +15,7 @@ const contactForm = mongoose.Schema(
         message: {
             type: String
         },
-        id: {
+        ProductId: {
             type: mongoose.Schema.Types.ObjectId
         }
     }

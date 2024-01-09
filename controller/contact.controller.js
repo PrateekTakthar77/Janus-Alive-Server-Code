@@ -5,9 +5,9 @@ require("dotenv").config();
 
 const Getuserquery = async (req, res, next) => {
     try {
-        const { name, email, phone, message, id } = req.body
-        const data = new Form({ name, email, phone, message, id })
-        const products = await product.findById(id)
+        const { name, email, phone, message, ProductId } = req.body
+        const data = new Form({ name, email, phone, message, ProductId })
+        const products = await product.findById(ProductId)
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             host: "smtp.gmail.com",
