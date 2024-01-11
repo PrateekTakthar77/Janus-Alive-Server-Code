@@ -1,4 +1,4 @@
-const Form = require("../model/contact.model")
+const QueryModel = require("../model/query.model")
 const product = require("../model/Product.model")
 const nodemailer = require("nodemailer")
 require("dotenv").config();
@@ -6,7 +6,7 @@ require("dotenv").config();
 const Getuserquery = async (req, res, next) => {
     try {
         const { name, email, phone, message, ProductId } = req.body
-        const data = new Form({ name, email, phone, message, ProductId })
+        const data = new QueryModel({ name, email, phone, message, ProductId })
         const products = await product.findById(ProductId)
         const transporter = nodemailer.createTransport({
             service: 'gmail',

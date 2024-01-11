@@ -1,7 +1,6 @@
-const { number } = require("joi");
 const mongoose = require("mongoose");
 
-const contactForm = mongoose.Schema(
+const ContactForm = mongoose.Schema(
     {
         name: {
             type: String
@@ -9,16 +8,16 @@ const contactForm = mongoose.Schema(
         email: {
             type: String
         },
-        phone: {
-            type: Number
+        city: {
+            type: String
         },
         message: {
             type: String
         },
-        ProductId: {
-            type: mongoose.Schema.Types.ObjectId
+        pincode: {
+            type: Number
         }
     }
 )
-const contact = mongoose.model("query", contactForm);
+const contact = mongoose.model("ContactForm", ContactForm);
 module.exports = contact
