@@ -27,6 +27,8 @@ const ContactForm = async (req, res, next) => {
             subject: "Thank You for contacting us",
             text:
                 `Dear ${name},
+                ${city},
+                ${pincode}
              `,
         };
 
