@@ -1,4 +1,4 @@
-const QueryModel = require("../model/query.model")
+const QueryModel = require("../model/Query.model")
 const product = require("../model/Product.model")
 const nodemailer = require("nodemailer")
 require("dotenv").config();
