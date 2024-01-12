@@ -14,7 +14,7 @@ const ContactForm = mongoose.Schema(
         message: {
             type: String
         },
-        pincode: {
+        phone: {
             type: Number
         }
     }

@@ -4,8 +4,8 @@ require("dotenv").config();
 
 const ContactForm = async (req, res, next) => {
     try {
-        const { name, email, pincode, city, message } = req.body
-        const data = new ContactFormModel({ name, email, pincode, city, message })
+        const { name, email, phone, city, message } = req.body
+        const data = new ContactFormModel({ name, email, phone, city, message })
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             host: "smtp.gmail.com",
@@ -28,7 +28,7 @@ const ContactForm = async (req, res, next) => {
             text:
                 `Dear ${name},
                 ${city},
-                ${pincode}
+                ${phone}
              `,
         };
 
