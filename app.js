@@ -10,6 +10,7 @@ const categoryRoute = require('./routes/Category.routes')
 const articleRoute = require("./routes/Post")
 const query = require("./routes/query.routes")
 const contactform = require("./routes/contactform.routes")
+const stateandcity = require("./routes/cityandstates.routes")
 const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }))
@@ -31,6 +32,7 @@ app.use('/api/category', categoryRoute);
 app.use("/api/blog", articleRoute);
 app.use("/api/query", query)
 app.use("/api/conatactform", contactform)
+app.use('/api/statescity', stateandcity)
 
 mongoose.connect(MONGO_URL)
     .then(() => {

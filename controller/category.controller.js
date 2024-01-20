@@ -2,8 +2,8 @@ const Category = require('../model/Category.Model')
 
 const createCategory = async (req, res, next) => {
     try {
-        const { category } = req.body;
-        const product = new Category({ category })
+        const { category, img } = req.body;
+        const product = new Category({ category, img })
         await product.save();
         res.status(200).json(product);
     } catch (error) {
