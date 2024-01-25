@@ -18,5 +18,6 @@ router.post('/', productController.createProduct);
 router.post('/bulk', productController.addMultipleProducts);
 // delete Product
 router.delete('/:id', productController.deleteProduct)
-
+// get product by url
+router.get('/url/:url', productController.productbyurl)
 module.exports = router;
