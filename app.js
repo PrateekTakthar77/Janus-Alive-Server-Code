@@ -12,7 +12,7 @@ const query = require("./routes/query.routes")
 const contactform = require("./routes/contactform.routes")
 const stateandcity = require("./routes/cityandstates.routes")
 const cors = require("cors");
-
+const logger = require("./helper/logger")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 const mongoConnect = require("./helper/db");
@@ -44,3 +44,5 @@ mongoose.connect(MONGO_URL)
     }).catch((error) => {
         console.log("error while connecting to the database ", error);
     })
+
+logger.info('The application is active');

@@ -1,5 +1,6 @@
 const Product = require("../model/Product.model")
-const { generateRandomCode } = require("../helper/code")
+const { generateRandomCode } = require("../helper/code");
+const logger = require("../helper/logger");
 
 // get all products
 // const getAllProducts = async (req, res, next) => {
@@ -45,6 +46,8 @@ const getAllProducts = async (req, res, next) => {
 
         // Fetch products based on the query
         let products = await Product.find(query);
+
+        logger.info("API request made to get all products")
 
         // Respond with the products
         res.status(200).json(products);
