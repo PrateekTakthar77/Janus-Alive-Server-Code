@@ -1,5 +1,6 @@
 # Dependency directories
 node_modules/
-server.log
+# .server.log
 #  .env
 # .env
+server.log
