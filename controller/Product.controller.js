@@ -23,33 +23,73 @@ const logger = require("../helper/logger");
 //         res.status(503).json({ message: error.message })
 //     }
 // }
+// const getAllProducts = async (req, res, next) => {
+//     try {
+//         // Validate and sanitize query parameters
+//         const { city, state, category } = req.query;
+//         console.log(req.query)
+//         const regCity = new RegExp(city.toLowerCase()
+//         )
+//         const regState = new RegExp(state.toLowerCase())
+//         let query = {};
+
+//         // Apply city filter if provided
+//         if (category) {
+//             query.category = category;
+//         }
+//         if (city) {
+//             query.city = { $regex: regCity };
+//         }
+
+//         // Apply category filter if provided
+//         if (state) {
+//             query.state = { $regex: regState };;
+//         }
+
+//         // Fetch products based on the query
+//         let products = await Product.find(query);
+
+//         logger.info("API request made to get all products")
+
+//         // Respond with the products
+//         res.status(200).json(products);
+//     } catch (error) {
+//         // Log the error for debugging purposes
+//         console.error(error);
+//         // Respond with an error message
+//         res.status(503).json({ message: 'Error fetching products', error: error.message });
+//     }
+// };
+
 const getAllProducts = async (req, res, next) => {
     try {
         // Validate and sanitize query parameters
         const { city, state, category } = req.query;
         console.log(req.query)
-        const regCity = new RegExp(city.toLowerCase()
-        )
-        const regState = new RegExp(state.toLowerCase())
+
+        // Initialize regular expressions
+        const regCity = city ? new RegExp(city.toLowerCase()) : null;
+        const regState = state ? new RegExp(state.toLowerCase()) : null;
+
         let query = {};
 
         // Apply city filter if provided
         if (category) {
             query.category = category;
         }
-        if (city) {
+        if (regCity) {
             query.city = { $regex: regCity };
         }
 
         // Apply category filter if provided
-        if (state) {
-            query.state = { $regex: regState };;
+        if (regState) {
+            query.state = { $regex: regState };
         }
 
         // Fetch products based on the query
         let products = await Product.find(query);
 
-        logger.info("API request made to get all products")
+        logger.info("API request made to get all products");
 
         // Respond with the products
         res.status(200).json(products);
@@ -60,6 +100,8 @@ const getAllProducts = async (req, res, next) => {
         res.status(503).json({ message: 'Error fetching products', error: error.message });
     }
 };
+
+
 
 // get Single Product by ID
 const getProductById = async (req, res, next) => {
