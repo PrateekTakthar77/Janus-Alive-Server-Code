@@ -28,7 +28,9 @@ const getAllProducts = async (req, res, next) => {
         // Validate and sanitize query parameters
         const { city, state, category } = req.query;
         console.log(req.query)
-
+        const regCity = new RegExp(city.toLowerCase()
+        )
+        const regState = new RegExp(state.toLowerCase())
         let query = {};
 
         // Apply city filter if provided
@@ -36,12 +38,12 @@ const getAllProducts = async (req, res, next) => {
             query.category = category;
         }
         if (city) {
-            query.city = city;
+            query.city = { $regex: regCity };
         }
 
         // Apply category filter if provided
         if (state) {
-            query.state = state;
+            query.state = { $regex: regState };;
         }
 
         // Fetch products based on the query
