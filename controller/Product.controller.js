@@ -61,35 +61,75 @@ const logger = require("../helper/logger");
 //     }
 // };
 
+// const getAllProducts = async (req, res, next) => {
+//     try {
+//         // Validate and sanitize query parameters
+//         const { city, state, category } = req.query;
+//         console.log(req.query)
+
+//         // Initialize regular expressions
+//         const regCity = city ? new RegExp(city.toLowerCase()) : null;
+//         const regState = state ? new RegExp(state.toLowerCase()) : null;
+
+//         let query = {};
+
+//         // Apply city filter if provided
+//         if (category) {
+//             query.category = category;
+//         }
+//         if (regCity) {
+//             query.city = { $regex: regCity };
+//         }
+
+//         // Apply category filter if provided
+//         if (regState) {
+//             query.state = { $regex: regState };
+//         }
+
+//         // Fetch products based on the query
+//         let products = await Product.find(query);
+
+//         logger.info("API request made to get all products");
+
+//         // Respond with the products
+//         res.status(200).json(products);
+//     } catch (error) {
+//         // Log the error for debugging purposes
+//         console.error(error);
+//         // Respond with an error message
+//         res.status(503).json({ message: 'Error fetching products', error: error.message });
+//     }
+// };
+
 const getAllProducts = async (req, res, next) => {
     try {
         // Validate and sanitize query parameters
-        const { city, state, category } = req.query;
+        const { state, category } = req.query;
         console.log(req.query)
 
-        // Initialize regular expressions
-        const regCity = city ? new RegExp(city.toLowerCase()) : null;
-        const regState = state ? new RegExp(state.toLowerCase()) : null;
+        // Initialize regular expression
+        const regLocation = state ? new RegExp(state.toLowerCase()) : null;
 
         let query = {};
 
-        // Apply city filter if provided
+        // Apply category filter if provided
         if (category) {
             query.category = category;
         }
-        if (regCity) {
-            query.city = { $regex: regCity };
-        }
 
-        // Apply category filter if provided
-        if (regState) {
-            query.state = { $regex: regState };
+        // Apply location filter if provided
+        if (regLocation) {
+            query.$or = [
+                { city: { $regex: regLocation } },
+                { state: { $regex: regLocation } }
+            ];
         }
 
         // Fetch products based on the query
         let products = await Product.find(query);
 
         logger.info("API request made to get all products");
+        logger.info(`API request made to get all products ${req.query}`);
 
         // Respond with the products
         res.status(200).json(products);
@@ -100,6 +140,7 @@ const getAllProducts = async (req, res, next) => {
         res.status(503).json({ message: 'Error fetching products', error: error.message });
     }
 };
+
 
 
 
