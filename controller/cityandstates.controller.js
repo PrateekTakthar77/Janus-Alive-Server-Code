@@ -21,4 +21,19 @@ const getdata = async (req, res, next) => {
         res.status(500).json({ message: error.message })
     }
 }
-module.exports = { addData, getdata }
+
+const deleteCityState = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await statesandcity.findByIdAndDelete(id)
+        if (!data) {
+            res.status(403).json({ message: `cannot find any product with id ${id}` })
+        }
+        res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        res.status(503).json({ message: error.message })
+    }
+}
+
+module.exports = { addData, getdata, deleteCityState }
