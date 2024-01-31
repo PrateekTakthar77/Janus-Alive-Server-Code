@@ -29,7 +29,8 @@ const deleteCityState = async (req, res) => {
         if (!data) {
             res.status(403).json({ message: `cannot find any product with id ${id}` })
         }
-        res.status(200).json(data);
+        // res.status(200).json(data);
+        res.status(200).json({ message: 'Deletion successful' });
     } catch (error) {
         console.log(error)
         res.status(503).json({ message: error.message })
