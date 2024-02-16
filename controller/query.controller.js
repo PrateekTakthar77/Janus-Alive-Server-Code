@@ -1,13 +1,13 @@
 const QueryModel = require("../model/Query.model")
 const product = require("../model/Product.model")
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const Getuserquery = async (req, res, next) => {
+const Senduserquery = async (req, res, next) => {
     try {
         const { name, email, phone, message, ProductId } = req.body
-        const data = new QueryModel({ name, email, phone, message, ProductId })
         const products = await product.findById(ProductId)
+        const data = new QueryModel({ name, email, phone, message, ProductId, add: products.address })
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             host: "smtp.gmail.com",
@@ -24,7 +24,6 @@ const Getuserquery = async (req, res, next) => {
                 name: 'Janus Alive',
                 address: process.env.USER
             }, // sender address
-            // to: email, // list of receivers
             to: 'prateek@januskoncepts.net', // list of receivers
             subject: "Thank You for contacting us",
             text:
@@ -51,4 +50,30 @@ const Getuserquery = async (req, res, next) => {
     }
 }
 
-module.exports = { Getuserquery };
+const getValues = async (req, res, next) => {
+    try {
+        const getquery = await QueryModel.find({});
+        res.status(200).json(getquery);
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).message({ message: error.message })
+    }
+}
+
+const deletequery = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const query = await QueryModel.findByIdAndDelete(id);
+        if (!query) {
+            res.status(403).json({ message: `cannot find any product with id ${id}` })
+        }
+        res.status(200).json(query)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).message({ message: error.message })
+    }
+}
+
+module.exports = { Senduserquery, getValues, deletequery }
