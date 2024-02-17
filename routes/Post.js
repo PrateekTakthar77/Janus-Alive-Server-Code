@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
         const savedPost = await newPost.save();
         res.status(201).json(savedPost);
     } catch (err) {
-        console.error(err); // Log the error for debugging
+        console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
@@ -49,8 +49,24 @@ router.delete("/:id", async (req, res) => {
 // get all
 router.get('/', async (req, res) => {
     try {
-        const post = await Post.find({});
-        res.status(200).json(post)
+        const page = parseInt(req.query.page) // ||1 Default to page 1 if not specified
+        const pageSize = parseInt(req.query.pageSize) // || 10   Default page size to 10 if not specified
+        const skip = (page - 1) * pageSize;
+
+        const totalRelatedPosts = await Post.countDocuments();
+
+        const totalPages = Math.ceil(totalRelatedPosts / pageSize);
+
+        const post = await Post.find({}).sort({ createdAt: -1 }) // Sorting by createdAt in descending order
+            .skip(skip)
+            .limit(pageSize);;
+        res.status(200).json({
+            data: post,
+            page: page || 0,
+            limit: pageSize || 0,
+            total_pages: totalPages || 0,
+            total_data: totalRelatedPosts,
+        })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Internal server error' });
