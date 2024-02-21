@@ -104,24 +104,26 @@ const logger = require("../helper/logger");
 const getAllProducts = async (req, res, next) => {
     try {
         // Validate and sanitize query parameters
-        const { state, category } = req.query;
+        const { state, subcat } = req.query;
         console.log(req.query)
 
         // Initialize regular expression
         const regLocation = state ? new RegExp(state.toLowerCase()) : null;
+        const regCategory = subcat ? new RegExp(subcat.toLowerCase()) : null;
 
         let query = {};
 
         // Apply category filter if provided
-        if (category) {
-            query.category = category;
-        }
+        // if (subcat) {
+        //     query.subcat = subcat;
+        // }
 
         // Apply location filter if provided
         if (regLocation) {
             query.$or = [
                 { city: { $regex: regLocation } },
-                { state: { $regex: regLocation } }
+                { state: { $regex: regLocation } },
+                { subcat: { $regex:  regCategory} }
             ];
         }
 
