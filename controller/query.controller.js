@@ -24,7 +24,7 @@ const Senduserquery = async (req, res, next) => {
                 name: 'Janus Alive',
                 address: process.env.USER
             }, // sender address
-            to: 'prateek@januskoncepts.net', // list of receivers
+            to: 'birender@januskoncepts.com', // list of receivers
             subject: "Thank You for contacting us",
             text:
                 `Dear ${name},hello ${products.address}
