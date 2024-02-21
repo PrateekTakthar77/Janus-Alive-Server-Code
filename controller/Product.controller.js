@@ -122,11 +122,12 @@ const getAllProducts = async (req, res, next) => {
         if (regLocation) {
             query.$or = [
                 { city: { $regex: regLocation } },
-                { state: { $regex: regLocation } },
-                { subcat: { $regex:  regCategory} }
+                { state: { $regex: regLocation } }
             ];
         }
-
+        if(regCategory){
+            query.$or.push({ subcat: { $regex:  regCategory} })
+        }
         // Fetch products based on the query
         let products = await Product.find(query);
 
