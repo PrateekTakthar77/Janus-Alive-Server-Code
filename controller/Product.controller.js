@@ -126,7 +126,7 @@ const getAllProducts = async (req, res, next) => {
             ];
         }
         if(regCategory){
-            query.$or.push({ subcat: { $regex:  regCategory} })
+            query.subcat={ $regex:  regCategory, $options:"i"} 
         }
         // Fetch products based on the query
         let products = await Product.find(query);
